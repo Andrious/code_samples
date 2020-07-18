@@ -67,7 +67,7 @@ import 'package:flutter/material.dart' show WidgetsFlutterBinding;
 import 'package:android_alarm_manager/android_alarm_manager.dart';
 
 class AlarmManager {
-
+  //
   static Future<bool> init({
     bool alarmClock = false,
     bool allowWhileIdle = false,
@@ -86,7 +86,7 @@ class AlarmManager {
       WidgetsFlutterBinding.ensureInitialized();
       // Initialize the plugin
       init = await AndroidAlarmManager.initialize();
-    }catch(ex){
+    } catch (ex) {
       getError(Exception(ex));
       return false;
     }
@@ -104,6 +104,7 @@ class AlarmManager {
 
     return true;
   }
+
   static bool _init = false;
 
   static bool _alarmClock = false;
@@ -186,17 +187,16 @@ class AlarmManager {
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShot(
-      Duration delay,
-      int id,
-      Function(int id) callback, {
-        bool alarmClock,
-        bool allowWhileIdle,
-        bool exact,
-        bool wakeup,
-        bool rescheduleOnReboot,
-      }) async {
-
-    assert(_init,"oneShot(): `AlarmManager.init()` must be first called.");
+    Duration delay,
+    int id,
+    Function(int id) callback, {
+    bool alarmClock,
+    bool allowWhileIdle,
+    bool exact,
+    bool wakeup,
+    bool rescheduleOnReboot,
+  }) async {
+    assert(_init, "oneShot(): `AlarmManager.init()` must be first called.");
     if (!_init) {
       getError("oneShot(): `AlarmManager.init()` must be first called.");
       return _init;
@@ -273,17 +273,16 @@ class AlarmManager {
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShotAt(
-      DateTime datetime,
-      int id,
-      Function(int id) callback, {
-        bool alarmClock,
-        bool allowWhileIdle,
-        bool exact,
-        bool wakeup,
-        bool rescheduleOnReboot,
-      }) async {
-
-    assert(_init,"oneShotAt(): `AlarmManager.init()` must be first called.");
+    DateTime datetime,
+    int id,
+    Function(int id) callback, {
+    bool alarmClock,
+    bool allowWhileIdle,
+    bool exact,
+    bool wakeup,
+    bool rescheduleOnReboot,
+  }) async {
+    assert(_init, "oneShotAt(): `AlarmManager.init()` must be first called.");
     if (!_init) {
       getError("oneShotAt(): `AlarmManager.init()` must be first called.");
       return _init;
@@ -361,18 +360,17 @@ class AlarmManager {
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> periodic(
-      Duration duration,
-      int id,
-      Function(int id) callback, {
-        DateTime startAt,
-        bool alarmClock, // Essentially ignored.
-        bool allowWhileIdle, // Essentially ignored.
-        bool exact,
-        bool wakeup,
-        bool rescheduleOnReboot,
-      }) async {
-
-    assert(_init,"periodic(): `AlarmManager.init()` must be first called.");
+    Duration duration,
+    int id,
+    Function(int id) callback, {
+    DateTime startAt,
+    bool alarmClock, // Essentially ignored.
+    bool allowWhileIdle, // Essentially ignored.
+    bool exact,
+    bool wakeup,
+    bool rescheduleOnReboot,
+  }) async {
+    assert(_init, "periodic(): `AlarmManager.init()` must be first called.");
     if (!_init) {
       getError("periodic(): `AlarmManager.init()` must be first called.");
       return _init;
@@ -464,9 +462,6 @@ class _Callback {
 
   // The callback for our alarm
   static Future<void> oneShot(int id) async {
-
-    print(oneShots);  // Although it's defined in the foreground it's null here.
-
     // This will be null if we're running in the background.
     SendPort uiSendPort = IsolateNameServer.lookupPortByName(_oneShot);
     // Identify which callback function to call
